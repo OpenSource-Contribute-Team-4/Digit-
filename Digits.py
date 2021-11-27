@@ -1,3 +1,5 @@
+import random
+
 def printIntro():
     print("                                DIGITS")
     print("              CREATIVE COMPUTING  MORRISTOWN, NEW JERSEY")
@@ -43,6 +45,14 @@ def read10Numbers():
 
     return numbers
 
+def readContinueChoice():
+    print("\nDO YOU WANT TO TRY AGAIN (1 FOR YES, 0 FOR NO) ? ")
+    try:
+        choice = int(input())
+        return choice == 1
+    except (ValueError, TypeError) as m:
+        return False
+        
 
 if __name__ == '__main__':
     printIntro()
@@ -82,5 +92,56 @@ if __name__ == '__main__':
                         break
 
             print("\n%-14s%-14s%-14s%-14s" %("MY GUESS", "YOUR NO.", "RESULT", "NO. RIGHT"))
+
+            for number in range(numbers):
+                s = 0
+                myGuess = 0
+                for j in range(1,3):
+                    #What did the original author have in mind ? The first expression always results in 0 because a is always 0
+                    s1 = a*k[z2][j]+b*l[z1][j]+c*m[z][j]
+                    if s < s1:
+                        s = s1
+                        myGuess = j
+                    elif s1 == s:
+                        if random.random() >= 0.5:
+                            myGuess = j
+                
+                result = ""
+
+                if myGuess != number:
+                    result = "WRONG"
+                else:
+                    runningCorrect += 1
+                    result = "RIGHT"
+                    m[z][number] = m[z][number] + 1
+                    l[z1][number] = l[z1][number] + 1
+                    k[z2][number] = k[z2][number] + 1
+                    z = z - (z / 9) * 9
+                    z = 3 * z + number
+                print("\n%-14d%-14d%-14s%-14d" %(myGuess, number, result, runningCorrect))
+
+                z1 = z - (z / 9) * 9
+                z2 = number
+        
+        #print summary report
+        print()
+        if runningCorrect > 10:
+            print()
+            print("I GUESSED MORE THAN 1/3 OF YOUR NUMBERS.")
+            print("I WIN."+ u"\u0007")
+        elif runningCorrect < 10:
+            print("I GUESSED LESS THAN 1/3 OF YOUR NUMBERS.")
+            print("YOU BEAT ME.  CONGRATULATIONS *****")
+        else:
+            print("I GUESSED EXACTLY 1/3 OF YOUR NUMBERS.")
+            print("IT'S A TIE GAME.")
+        
+        continueGame = readContinueChoice()
+
+    print("\nTHANKS FOR THE GAME.")
+
+
+
+
 
 
