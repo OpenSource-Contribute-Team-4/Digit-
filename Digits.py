@@ -37,7 +37,7 @@ def read10Numbers():
         validInput = False
         while not validInput:
             try:
-                n = int(next())
+                n = int(input())
                 validInput = True
                 numbers.append(n)
             except (TypeError, ValueError) as e:
@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
             print("\n%-14s%-14s%-14s%-14s" %("MY GUESS", "YOUR NO.", "RESULT", "NO. RIGHT"))
 
-            for number in range(numbers):
+            for number in numbers:
                 s = 0
                 myGuess = 0
                 for j in range(1,3):
